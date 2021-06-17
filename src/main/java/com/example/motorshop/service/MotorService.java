@@ -41,7 +41,7 @@ public class MotorService {
                 return "Error! Amount only contains numbers!";
             if(!h.isNum(motor.getPrice().toString()))
                 return "Error! Price only contains numbers!";
-            if(!h.isNum(motor.getWarrPeriod().toString()))
+            if(!h.isNum(motor.getWarrantyPeriod().toString()))
                 return "Error! Warranty Period only contains numbers! (months)";
             formatBrand(motor);
             if(motorRepo.existsByName(motor.getName()))
@@ -103,7 +103,7 @@ public class MotorService {
                 return "Error! Amount only contains numbers!";
             if(!h.isNum(motor.getPrice().toString()))
                 return "Error! Price only contains numbers!";
-            if(!h.isNum(motor.getWarrPeriod().toString()))
+            if(!h.isNum(motor.getWarrantyPeriod().toString()))
                 return "Error! Warranty Period only contains numbers! (months)";
             formatBrand(motor);
             if(!motorRepo.existsById(motor.getId()))
@@ -140,7 +140,7 @@ public class MotorService {
     
     public boolean isNull(Motor motor) {        
         return h.isNull(motor.getName()) || h.isNullNum(motor.getAmount())
-                || h.isNullNum(motor.getPrice()) || h.isNullNum(motor.getWarrPeriod())
+                || h.isNullNum(motor.getPrice()) || h.isNullNum(motor.getWarrantyPeriod())
                     || h.isNull(motor.getBrandId());
     }
     

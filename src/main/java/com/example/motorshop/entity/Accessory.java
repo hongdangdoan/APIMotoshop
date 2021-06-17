@@ -81,11 +81,11 @@ public class Accessory {
         this.price = price;
     }
 
-    public Integer getWarrPeriod() {
+    public Integer getWarrantyPeriod() {
         return warrantyPeriod;
     }
 
-    public void setWarrPeriod(Integer warrantyPeriod) {
+    public void setWarrantyPeriod(Integer warrantyPeriod) {
         this.warrantyPeriod = warrantyPeriod;
     }
 

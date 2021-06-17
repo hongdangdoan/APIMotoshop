@@ -33,18 +33,19 @@ public class Staff {
     private String createdDate;
     
     @Column(name = "departId", nullable = false)
-    private String dpId;    //editable true
+    private String departId;    //editable true
 
     public Staff() {}
 
-    public Staff(String id, String dpId, String name, String phone, String createdDate) {
+    public Staff(String id, String name, String phone, String passWord, String createdDate, String departId) {
         this.id = id;
-        this.dpId = dpId;
         this.name = name;
-        this.phone = phone;        
+        this.phone = phone;
+        this.passWord = passWord;
         this.createdDate = createdDate;
+        this.departId = departId;
     }
-
+        
     public String getId() {
         return id;
     }
@@ -84,12 +85,12 @@ public class Staff {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }      
-    
-    public String getDpId() {
-        return dpId;
+
+    public String getDepartId() {
+        return departId;
     }
 
-    public void setDpId(String dpId) {
-        this.dpId = dpId;
-    }
+    public void setDepartId(String departId) {
+        this.departId = departId;
+    }    
 }

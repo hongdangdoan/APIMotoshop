@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class StaffService {
     
-    private static final String ID_MODEL = "NV";
+    private static final String ID_MODEL = "ST";
     private static final String HASH_MODEL = "MD5";
     
     private static final String SUCCESS = "OK";
@@ -45,10 +45,12 @@ public class StaffService {
                 return "Error! Phone contains numbers only!";
             if(staff.getPhone().length() > 15)
                 return "Error! Phone's max length is 15!";
+            if(staff.getPassWord().length() < 4)
+                return "Error! Password's min length is 4!";
             formatStaff(staff);
             if(staffRepo.existsByPhone(staff.getPhone()))
                 return "Error! Phone existed!";
-            if(!departRepo.existsById(staff.getDpId()))
+            if(!departRepo.existsById(staff.getDepartId()))
                 return "Error! DepartID does not exist!";
             else{
                 String maxId = staffRepo.findMaxId();
@@ -126,12 +128,14 @@ public class StaffService {
                 return "Error! Phone contains numbers only!";
             if(staff.getPhone().length() > 15)
                 return "Error! Phone's max length is 15!";
+            if(staff.getPassWord().length() < 4)
+                return "Error! Password's min length is 4!";
             formatStaff(staff);            
             if(!staffRepo.existsById(staff.getId()))
                 return "Error! ID does not exist!";
             if(staffRepo.existsByPhoneOtherStaff(staff.getId(), staff.getPhone()) != null)
                 return "Error! Phone existed in other Staff!";
-            if(!departRepo.existsById(staff.getDpId()))
+            if(!departRepo.existsById(staff.getDepartId()))
                 return "Error! DepartID does not exist!";
             else{                            
                 staff.setPassWord(h.getCryptoHash(staff.getPassWord(), HASH_MODEL));
@@ -159,9 +163,16 @@ public class StaffService {
         }
     }        
     
+    public String authenticate(String usn, String pwd) {
+        if(h.isNull(usn) || h.isNull(pwd) || !h.isNum(usn) || usn.length() > 15 || pwd.length() < 4) return null;
+        String staffId = staffRepo.existsByPhoneAndPassword(usn, pwd); System.out.println(staffId);
+        if(staffId != null ) return staffId;
+        else return null;
+    }
+    
     public boolean isNull(Staff staff) {    
         return h.isNull(staff.getName()) || h.isNull(staff.getPhone())
-                || h.isNull(staff.getPassWord()) || h.isNull(staff.getDpId())
+                || h.isNull(staff.getPassWord()) || h.isNull(staff.getDepartId())
                     || h.isNull(staff.getCreatedDate());       
     }   
     
@@ -169,6 +180,6 @@ public class StaffService {
         if(!h.isNull(staff.getId()))
             staff.setId(staff.getId().toUpperCase());        
         staff.setName(h.formatName(staff.getName()));        
-        staff.setDpId(staff.getDpId().toUpperCase());
+        staff.setDepartId(staff.getDepartId().toUpperCase());
     }
 }

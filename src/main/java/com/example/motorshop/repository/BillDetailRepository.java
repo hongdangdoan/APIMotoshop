@@ -79,4 +79,10 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, Integer>
                     " where product like %:productName% ",
                     nativeQuery = true)
     public List<Object[]> findClearByProductName(@Param("productName") String productName);
+    
+     @Query( value = "select bd.bill_id, b.created_date,c.name, bd.price " +
+                    "from bill b, bill_detail bd, customer c " +
+                    "where bd.bill_id=b.bill_id and b.customer_id=c.customer_id",
+                    nativeQuery = true )
+    public List<Object[]>getOrderDetail();
 }

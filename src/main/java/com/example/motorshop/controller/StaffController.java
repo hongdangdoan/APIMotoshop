@@ -34,15 +34,15 @@ public class StaffController {
         return staffService.createStaff(staff);
     }
     
+    @GetMapping("/authen")
+    public String authenticate(@RequestParam(name = "usn") String usn, @RequestParam(name = "pwd") String pwd) {
+        return staffService.authenticate(usn, pwd);
+    }
+    
     @GetMapping
     public List<Staff> getAll() {
         return staffService.readAll();
-    }
-    
-    @GetMapping("/clear")
-    public List<Object[]> getClearAll() {
-        return staffService.readClearAll();
-    }
+    }        
     
     @GetMapping("/id")
     public Staff getById(@RequestParam(name = "id") String id) {
@@ -57,7 +57,12 @@ public class StaffController {
     @GetMapping("/phone")
     public List<Staff> getByPhone(@RequestParam(name = "phone") String phone) {
         return staffService.readByPhone(phone);
-    }   
+    }
+    
+    @GetMapping("/clear")
+    public List<Object[]> getClearAll() {
+        return staffService.readClearAll();
+    }          
     
     @PutMapping
     public String update(@RequestBody Staff staff) {
@@ -67,5 +72,5 @@ public class StaffController {
     @DeleteMapping
     public String delete(@RequestParam(name = "id") String id) {
         return staffService.deleteStaff(id);
-    }   
+    }        
 }

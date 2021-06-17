@@ -22,7 +22,7 @@ public interface DepartRepository extends JpaRepository<Depart, String> {
     public boolean existsByName(String name);  
            
     @Query("select d from Depart d where d.name like %:name%")
-    public List<Depart> findByName(String name);
+    public List<Depart> findByName(@Param("name") String name);
     
     @Query("select d.id from Depart d where d.id != :id and d.name = :name")
     public String existsByNameOtherDepart(@Param("id") String id, @Param("name") String name);

@@ -34,6 +34,11 @@ public class CustomerController {
         return customerService.createCustomer(customer);
     }
     
+    @GetMapping("/authen")
+    public String authenticate(@RequestParam(name = "usn") String usn, @RequestParam(name = "pwd") String pwd) {
+        return customerService.authenticate(usn, pwd);
+    }
+    
     @GetMapping
     public List<Customer> getAll() {
         return customerService.readAll();

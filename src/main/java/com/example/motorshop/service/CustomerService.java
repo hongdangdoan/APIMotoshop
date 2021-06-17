@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerService {        
     
-    private static final String ID_MODEL = "KH";
+    private static final String ID_MODEL = "CM";
     private static final String HASH_MODEL = "MD5";
     
     private static final String SUCCESS = "OK";
@@ -37,12 +37,16 @@ public class CustomerService {
                 return "Error! NULL data!";
             if(!h.isNum(customer.getIdentityId()))
                 return "Error! IdentityId only contains numbers!";
+            if(customer.getIdentityId().length() != 9)
+                return "Error! IdentityId's length is 9!";
             if(!h.isAlpha(customer.getName()))
                 return "Error! Name only contains alphas & spaces!";            
             if(!h.isNum(customer.getPhone()))
                 return "Error! Phone only contains numbers!";
             if(customer.getPhone().length() > 15)
                 return "Error! Phone's max length is 15!";
+            if(customer.getPassWord().length() < 4)
+                return "Error! Password's min length is 4!";
             formatStaff(customer);
             if(customerRepo.existsByIdentityId(customer.getIdentityId()))
                 return "Error! IdentityId existed!";
@@ -129,12 +133,16 @@ public class CustomerService {
                 return "Error! Null ID!";
             if(!h.isNum(customer.getIdentityId()))
                 return "Error! IdentityId only contains numbers!";
+            if(customer.getIdentityId().length() != 9)
+                return "Error! IdentityId's length is 9!";
             if(!h.isAlpha(customer.getName()))
                 return "Error! Name only contains alphas & spaces!";            
             if(!h.isNum(customer.getPhone()))
                 return "Error! Phone only contains numbers!";
             if(customer.getPhone().length() > 15)
                 return "Error! Phone's max length is 15!";
+            if(customer.getPassWord().length() < 4)
+                return "Error! Password's min length is 4!";
             formatStaff(customer);
             if(!customerRepo.existsById(customer.getId()))
                 return "Error! ID does not exist!";
@@ -167,6 +175,13 @@ public class CustomerService {
             throw e;
         }
     }        
+    
+    public String authenticate(String usn, String pwd) {
+        if(h.isNull(usn) || h.isNull(pwd) || !h.isNum(usn) || usn.length() > 15 || pwd.length() < 4) return null;
+        String customerId = customerRepo.existsByPhoneAndPassword(usn, pwd); System.out.println(customerId);
+        if(customerId != null ) return customerId;
+        else return null;
+    }
     
     public boolean isNull(Customer customer) { 
         return h.isNull(customer.getIdentityId()) || h.isNull(customer.getName())

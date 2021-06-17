@@ -33,19 +33,19 @@ public class Motor {
     private Integer price;
     
     @Column(name = "warrantyPeriod", nullable = false)
-    private Integer warrPeriod;   
+    private Integer warrantyPeriod; 
     
     @Column(name = "brandId", nullable = false)
     private String brandId;
 
     public Motor() {}
 
-    public Motor(Integer id, String name, Integer amount, Integer price, Integer warrPeriod, String brandId) {
+    public Motor(Integer id, String name, Integer amount, Integer price, Integer warrantyPeriod, String brandId) {
         this.id = id;
         this.name = name;
         this.amount = amount;
         this.price = price;
-        this.warrPeriod = warrPeriod;
+        this.warrantyPeriod = warrantyPeriod;
         this.brandId = brandId;
     }
 
@@ -81,13 +81,13 @@ public class Motor {
         this.price = price;
     }
 
-    public Integer getWarrPeriod() {
-        return warrPeriod;
+    public Integer getWarrantyPeriod() {
+        return warrantyPeriod;
     }
 
-    public void setWarrPeriod(Integer warrPeriod) {
-        this.warrPeriod = warrPeriod;
-    }
+    public void setWarrantyPeriod(Integer warrantyPeriod) {
+        this.warrantyPeriod = warrantyPeriod;
+    }    
 
     public String getBrandId() {
         return brandId;

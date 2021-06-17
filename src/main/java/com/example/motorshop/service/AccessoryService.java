@@ -41,7 +41,7 @@ public class AccessoryService {
                 return "Error! Amount only contains numbers!";
             if(!h.isNum(accessory.getPrice().toString()))
                 return "Error! Price only contains numbers!";
-            if(!h.isNum(accessory.getWarrPeriod().toString()))
+            if(!h.isNum(accessory.getWarrantyPeriod().toString()))
                 return "Error! Warranty Period only contains numbers! (months)";
             formatBrand(accessory);
             if(accessoryRepo.existsByName(accessory.getName()))
@@ -103,7 +103,7 @@ public class AccessoryService {
                 return "Error! Amount only contains numbers!";
             if(!h.isNum(accessory.getPrice().toString()))
                 return "Error! Price only contains numbers!";
-            if(!h.isNum(accessory.getWarrPeriod().toString()))
+            if(!h.isNum(accessory.getWarrantyPeriod().toString()))
                 return "Error! Warranty Period only contains numbers! (months)";
             formatBrand(accessory);
             if(!accessoryRepo.existsById(accessory.getId()))
@@ -140,7 +140,7 @@ public class AccessoryService {
     
     public boolean isNull(Accessory accessory) {        
         return h.isNull(accessory.getName()) || h.isNullNum(accessory.getAmount())
-                || h.isNullNum(accessory.getPrice()) || h.isNullNum(accessory.getWarrPeriod())
+                || h.isNullNum(accessory.getPrice()) || h.isNullNum(accessory.getWarrantyPeriod())
                     || h.isNull(accessory.getBrandId());
     }
     
