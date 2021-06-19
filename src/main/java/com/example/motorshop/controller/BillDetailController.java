@@ -72,4 +72,31 @@ public class BillDetailController {
     public String delete(@RequestParam(name = "id") String id) {
         return billDetailService.delete(id);
     }
+    
+    //controller made by Dang
+    @GetMapping("/getOrderDetail")
+    public List<Object[]> getOrderDetail( ) {
+        return billDetailService.getOrderDetail();
+    }
+   @GetMapping("/getDetailOfAnOrder")
+   public List<Object[]>getOrderDetail(@RequestParam(name="billId")String billId){
+       return billDetailService.readClearByBillIdV2(billId);
+   }
+   @GetMapping("/listPrname")
+   public List<Object[]>getListProductName(){
+       return billDetailService.getListProductName();
+   }
+   @GetMapping("/listPrByName")
+   public List<Object[]>getListProductByName(@RequestParam(name="name")String name){
+       return billDetailService.getListProductByName(name);
+   }
+      /////////-*-------------------------------------------------------------------------- 
+   @GetMapping("/moneyin")
+   public List<Object[]> getOrderDetailMI( ) {
+        return billDetailService.getOrderDetailMI();
+    }
+   @GetMapping("/moneyde")
+   public List<Object[]> getOrderDetailMD( ) {
+        return billDetailService.getOrderDetailMD();
+    }
 }

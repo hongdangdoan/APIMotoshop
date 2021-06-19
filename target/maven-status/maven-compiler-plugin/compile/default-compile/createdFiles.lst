@@ -8,7 +8,6 @@ com\example\motorshop\service\ImageService.class
 com\example\motorshop\service\MotorInfoService.class
 com\example\motorshop\controller\AccessoryController.class
 com\example\motorshop\entity\MotorInfo.class
-com\example\motorshop\repository\test.class
 com\example\motorshop\service\DepartService.class
 com\example\motorshop\controller\MotorInfoController.class
 com\example\motorshop\controller\StaffController.class

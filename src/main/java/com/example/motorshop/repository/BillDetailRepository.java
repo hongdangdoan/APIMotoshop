@@ -53,6 +53,16 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, Integer>
                     " order by bd.id ",
                     nativeQuery = true)
     public List<Object[]> findClearAllUnCombined();
+    
+    @Query(value =  " select bd.id, bd.bill_id, m.name as motor, a.name as accessory, bd.amount, bd.price " +
+                    " from bill_detail bd " +
+                    " left join motor m " +
+                    " on m.motor_id = bd.motor_id " +
+                    " left join accessory a " +
+                    " on bd.accessory_id = a.accessory_id" +
+                    " order by bd.id ",
+                    nativeQuery = true)
+    public List<Object[]> findClearAllUnCombined(@Param("billId")Integer billId);
                     
     @Query(value =  " select bd.id, bd.bill_id, m.name as product, bd.amount, bd.price " +
                     " from bill_detail bd, motor m " +
@@ -67,6 +77,9 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, Integer>
                     nativeQuery = true)
     public List<Object[]> findClearByBillId(@Param("billId") Integer billId);
     
+    
+   
+    
     @Query(value =  " select * " +
                     " from ( " +
                     " select bd.id, bd.bill_id, m.name as product, bd.amount, bd.price " +
@@ -80,9 +93,61 @@ public interface BillDetailRepository extends JpaRepository<BillDetail, Integer>
                     nativeQuery = true)
     public List<Object[]> findClearByProductName(@Param("productName") String productName);
     
-     @Query( value = "select bd.bill_id, b.created_date,c.name, bd.price " +
+    // repo made by Dang
+    
+    @Query( value = "select bd.bill_id, b.created_date,c.name, bd.price " +
                     "from bill b, bill_detail bd, customer c " +
                     "where bd.bill_id=b.bill_id and b.customer_id=c.customer_id",
                     nativeQuery = true )
     public List<Object[]>getOrderDetail();
+    
+    
+    @Query( value = "select a.name " +
+                     "from accessory a " +
+                     "union " +
+                     "select m.name " +
+                     "from motor m",
+                    nativeQuery = true )
+    public List<Object[]>getListProductName();
+    
+    @Query( value = "select a.accessory_id,a.name,a.amount,a.price " +
+                     "from accessory a " +
+                     "where a.name = :name "+
+                     "union " +
+                     "select m.motor_id,m.name,m.amount,m.price " +
+                     "from motor m "+
+                     "where m.name = :name",
+                    nativeQuery = true )
+    public List<Object[]>getListProductByName(@Param("name")String name);
+     // get Product Id Instead BillID
+    @Query(value =  " select bd.id, m.motor_id, m.name as product, bd.amount, bd.price " +
+                    " from bill_detail bd, motor m " +
+                    " where bd.motor_id = m.motor_id and bd.motor_id is not null " +
+                    " and bd.bill_id = :billId " +
+                    " union " +
+                    " select bd.id, a.accessory_id, a.name as product , bd.amount, bd.price " +
+                    " from bill_detail bd, accessory a " +
+                    " where bd.accessory_id = a.accessory_id and bd.accessory_id is not null " +
+                    " and bd.bill_id = :billId " +
+                    " order by bd.id ",
+                    nativeQuery = true)
+    public List<Object[]> findClearByBillIdV2(@Param("billId") Integer billId);
+    /////////-*--------------------------------------------------------------------------
+    @Query(value="select bd.bill_id, b.created_date,c.name, bd.price " +
+                "  from bill b, bill_detail bd, customer c "+
+                "   where bd.bill_id=b.bill_id and b.customer_id=c.customer_id " +
+                "    order by bd.price"
+    ,nativeQuery=true)
+    public List<Object[]> getOrderDetailMI();
+    
+    @Query(value="select bd.bill_id, b.created_date,c.name, bd.price " +
+                "  from bill b, bill_detail bd, customer c "+
+                "   where bd.bill_id=b.bill_id and b.customer_id=c.customer_id " +
+                "    order by bd.price desc"
+    ,nativeQuery=true)
+    public List<Object[]> getOrderDetailMD();
+    
+    //
+    
+ 
 }

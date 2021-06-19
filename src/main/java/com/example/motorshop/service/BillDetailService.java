@@ -116,6 +116,15 @@ public class BillDetailService {
         }
     }
     
+    public List<Object[]> readClearAllUnCombined(String billId) {
+        try{      
+            int bId = Integer.parseInt(billId);
+            return billDetailRepo.findClearAllUnCombined(bId);
+        }catch(NumberFormatException e) {            
+            throw e;
+        }
+    }
+    
     public List<Object[]> readClearByBillId(String billId) {
         try{                                    
             if(h.isNull(billId)) return null;
@@ -127,6 +136,8 @@ public class BillDetailService {
             throw e;
         }
     }
+    
+   
     
     public List<Object[]> readClearByProductName(String productName) {
         try{                                    
@@ -160,5 +171,36 @@ public class BillDetailService {
         return h.isNullNum(billDetail.getBillId()) || h.isNullNum(billDetail.getAmount())
                 || (h.isNullNum(billDetail.getMotorId()) && h.isNullNum(billDetail.getAccessoryId()))
                     || h.isNullNum(billDetail.getPrice());
-    }        
+    }  
+    // service made by Dang
+     public List<Object[]> readClearByBillIdV2(String billId) {
+        try{                                    
+            if(h.isNull(billId)) return null;
+            if(!h.isNum(billId)) return null;
+            int id = Integer.parseInt(billId);
+            
+            return billDetailRepo.findClearByBillIdV2(id);
+        }catch(NumberFormatException e) {            
+            throw e;
+        }
+    }
+    public List<Object[]>getOrderDetail(){
+        return billDetailRepo.getOrderDetail();
+    }
+    
+    public List<Object[]>getListProductName(){
+        return billDetailRepo.getListProductName();
+    }
+     public List<Object[]>getListProductByName(String name){
+        return billDetailRepo.getListProductByName(name);
+    }
+        /////////-*-------------------------------------------------------------------------- 
+     public List<Object[]>getOrderDetailMI(){
+        return billDetailRepo.getOrderDetailMI();
+    }
+ 
+      public List<Object[]>getOrderDetailMD(){
+        return billDetailRepo.getOrderDetailMD();
+    }
+    
 }
